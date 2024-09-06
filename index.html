@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <button onclick="location.href='admin-login.html'">Login Admin</button>
+    </header>
+    <main>
+        <h1>Katalog Produk</h1>
+        <div id="product-list">
+            <!-- Produk akan dimuat di sini menggunakan JavaScript -->
+        </div>
+    </main>
+    <script>
+        function loadProducts() {
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+
+            products.forEach((product, index) => {
+                productList.innerHTML += `
+                    <div class="product">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h2>${product.name}</h2>
+                        <p>Harga: Rp${product.price}</p>
+                        <a href="product-detail.html?id=${index}">Lihat Detail</a>
+                        <a href="admin-edit.html?id=${index}">Edit</a>
+                    </div>
+                `;
+            });
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='order-list.html'">Pesan Sekarang</button>
+    </header>
+    <main>
+        <h1>Keranjang</h1>
+        <div id="cart-items">
+            <!-- Daftar item keranjang akan dimuat di sini menggunakan JavaScript -->
+        </div>
+        <div id="cart-total">
+            <!-- Total harga akan ditampilkan di sini -->
+        </div>
+    </main>
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            let total = 0;
+
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <h2>${item.name}</h2>
+                        <p>Harga: Rp${item.price}</p>
+                    </div>
+                `;
+                total += parseFloat(item.price);
+            });
+
+            cartTotal.innerHTML = `Total: Rp${total.toFixed(2)}`;
+        }
+
+        loadCart();
+    </script>
+</body>
+</html>
